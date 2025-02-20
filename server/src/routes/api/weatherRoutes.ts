@@ -21,7 +21,7 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 // TODO: GET search history
-router.get('/history', async (req: Request, res: Response) => {
+router.get('/history', async (res: Response) => {
   try {
     const history = await HistoryService.getCities();
     res.json(history);
