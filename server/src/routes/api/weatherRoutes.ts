@@ -7,9 +7,10 @@ const router = Router();
 // TODO: POST Request with city name to retrieve weather data
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { city } = req.body;
-    const weatherData = await WeatherService.getWeatherForCity(city);
-    await HistoryService.addCity(city);
+    const { cityName } = req.body;
+    console.log(req.body, cityName);
+    const weatherData = await WeatherService.getWeatherForCity(cityName);
+    await HistoryService.addCity(cityName);
     //ensures saved data has proper casing regardless of input
     res.json(weatherData);
   } catch (err) {
@@ -21,8 +22,9 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 // TODO: GET search history
-router.get('/history', async (res: Response) => {
+router.get('/history', async (req: Request, res: Response) => {
   try {
+    console.log('Fetching search history', req.body);
     const history = await HistoryService.getCities();
     res.json(history);
   } catch (err) {
