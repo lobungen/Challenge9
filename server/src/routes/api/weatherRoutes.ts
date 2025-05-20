@@ -10,6 +10,7 @@ router.post('/', async (req: Request, res: Response) => {
     const { cityName } = req.body;
     console.log(req.body, cityName);
     const weatherData = await WeatherService.getWeatherForCity(cityName);
+    console.log('Weather Data:', weatherData);
     await HistoryService.addCity(cityName);
     //ensures saved data has proper casing regardless of input
     res.json(weatherData);

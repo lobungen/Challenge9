@@ -128,9 +128,10 @@ class WeatherService {
   }
   // TODO: Complete buildForecastArray method
   private buildForecastArray(currentWeather: Weather, weatherData: any[]) {
-    // console.log('Weather Data:', weatherData, currentWeather);
+    console.log('Weather Data:', currentWeather);
     let dt1 = weatherData[0].dt_txt.split(' ')[0];
-    const forecastArray = weatherData.map((data: any) => {
+    let forecastArray: Weather[] = [];
+    const fivedayArray = weatherData.map((data: any) => {
       const dt2 = data.dt_txt.split(' ')[0];
       if (dt1 !== dt2) {
         const { weather, main, wind } = data;
@@ -150,8 +151,10 @@ class WeatherService {
         );
         return forecast;
       }
-    });
-    console.log('Forecast Array:', forecastArray);
+      return null;
+    }).filter((forecast: Weather | null) => forecast !== null);
+    forecastArray = [currentWeather, ...fivedayArray];
+    console.log('Forecast Array:', forecastArray.length);
     return forecastArray;
   }
   // TODO: Complete getWeatherForCity method
