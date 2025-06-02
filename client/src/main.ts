@@ -58,6 +58,7 @@ const fetchSearchHistory = async () => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('history: ', history);
   return history;
 };
 
@@ -141,6 +142,7 @@ const renderForecastCard = (forecast: any) => {
 };
 
 const renderSearchHistory = async (searchHistory: any) => {
+  console.log('searchHistory: ', searchHistory);
   const historyList = await searchHistory.json();
 
   if (searchHistoryContainer) {

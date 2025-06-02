@@ -59,7 +59,7 @@ class WeatherService {
   private async fetchLocationData(query: string) {
     const response = await fetch(query);
     const locationData = await response.json();
-    console.log("location data", locationData[0]);
+    // console.log("location data", locationData[0]);
     const location = this.destructureLocationData(locationData[0]);
     return location;
   }
@@ -73,13 +73,13 @@ class WeatherService {
       state: state,
       country: country,
     };
-    console.log('Coordinates:', coordinates);
+    // console.log('Coordinates:', coordinates);
     return coordinates;
   }
   // TODO: Create buildGeocodeQuery method
   private buildGeocodeQuery(): string {
     // http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid={API key}
-    console.log(this.cityName);
+    // console.log(this.cityName);
     const query = `${this.baseURL}/geo/1.0/direct?q=${this.cityName}&limit=5&appid=${this.apiKey}`;
     console.log(query);
     return query;
@@ -95,7 +95,7 @@ class WeatherService {
   private async fetchAndDestructureLocationData() {
     const query = this.buildGeocodeQuery();
     const locationData = await this.fetchLocationData(query);
-    console.log('Location Data:', locationData);
+    // console.log('Location Data:', locationData);
     return locationData;
   }
   // TODO: Create fetchWeatherData method
@@ -128,7 +128,7 @@ class WeatherService {
   }
   // TODO: Complete buildForecastArray method
   private buildForecastArray(currentWeather: Weather, weatherData: any[]) {
-    console.log('Weather Data:', currentWeather);
+    // console.log('Weather Data:', currentWeather);
     let dt1 = weatherData[0].dt_txt.split(' ')[0];
     let forecastArray: Weather[] = [];
     const fivedayArray = weatherData.map((data: any) => {
@@ -154,12 +154,12 @@ class WeatherService {
       return null;
     }).filter((forecast: Weather | null) => forecast !== null);
     forecastArray = [currentWeather, ...fivedayArray];
-    console.log('Forecast Array:', forecastArray.length);
+    // console.log('Forecast Array:', forecastArray.length);
     return forecastArray;
   }
   // TODO: Complete getWeatherForCity method
   async getWeatherForCity(city: string) {
-    console.log('City:', city);
+    // console.log('City:', city);
     this.cityName = city;
     const locationData = await this.fetchAndDestructureLocationData();
     const weatherData = await this.fetchWeatherData(locationData);
